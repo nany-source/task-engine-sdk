@@ -1,0 +1,9 @@
+{
+    "name": "b2sign/task-engine-sdk",
+    "description": "Task-Engine SDK",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.2",
+        "guzzlehttp/guzzle": "^7.8"
+    }
+}
