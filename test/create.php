@@ -10,18 +10,23 @@ $appSecret = 'test';
 $taskEngine = new TaskEngine($apiEndpoint, $appKey, $appSecret);
 
 $task = $taskEngine->setType('type_name')
-    ->setCallbackUrl('https://your-callback-url.com')
-    ->setPriority('normal')
-    ->setUnique([ 'key' => 'value' ])
-    ->setKeepAlive(true)
-    ->setQueueData([
-      'queue1' => [ 1, 2, 3 ],
-      'queue2' => [ 'a', 'b', 'c' ],
-    ])
-    ->setData([
-      'foo' => 'bar',
-    ])
-    ->setTask('task-id')  // Optional for creating keep-alive tasks
-    ->create();
+        ->setCallbackUrl('https://your-callback-url.com')
+        ->setPriority('normal')
+        ->setUnique([ 'key' => 'value' ])
+        ->setKeepAlive(true)
+        ->setQueueData([
+            'queue1' => [ 1, 2, 3 ],
+            'queue2' => [ 'a', 'b', 'c' ],
+        ])
+        ->setData([
+            'foo' => 'bar',
+        ])
+        ->setTask('task-id')  // Optional for creating keep-alive tasks
+        ->create();
 
 echo 'Create task: ' . $task->id . PHP_EOL;
+
+$task = $taskEngine->setTask($task->id)
+        ->get();
+
+echo 'Get task: ' . $task->id . PHP_EOL;

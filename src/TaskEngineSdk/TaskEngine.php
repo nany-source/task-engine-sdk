@@ -51,6 +51,12 @@ class TaskEngine
         return $body['result'];
     }
 
+    /* Reset */
+    protected function reset()
+    {
+        $this->params = [];
+    }
+
     /**
      * Set task ID
      * @param $taskId string Task ID
@@ -148,6 +154,19 @@ class TaskEngine
         $params = $this->params;
         $params['action'] = 'create';
         $result = $this->call($params);
+        $this->reset();
+        return new Task($result);
+    }
+
+    /**
+     * Get task
+     */
+    public function get()
+    {
+        $params = $this->params;
+        $params['action'] = 'detail';
+        $result = $this->call($params);
+        $this->reset();
         return new Task($result);
     }
 }
