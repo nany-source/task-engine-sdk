@@ -65,13 +65,13 @@ To log a message for a task, use the `log` method. This method takes the task ID
 $taskId = 'task-id';
 
 $task = $taskEngine->setTask($taskId)
-    ->log('success', 'This is a log message');
+    ->log('This is a log message', 'success');
 ```
 
 #### Reference
-- `log(string $level, string $message)`
-  - `$level`: The log level. Possible values are `success`, `info`, `warning`, and `error`.
+- `log(string $message, string $level = null)`
   - `$message`: The log message.
+  - `$level`: The log level. Possible values are `success`, `info`, `warning`, and `error`. Default is `info`.
 
 ### Complete / Fail a Task
 To complete or fail a task, use the `complete` or `fail` method. These methods take the task ID as their only argument.
@@ -94,6 +94,26 @@ $taskId = 'task-id';
 
 $task = $taskEngine->setTask($taskId)
     ->get();
+```
+
+## Callback Response
+When the Task Engine sends a POST request to the callback URL, the response will be a JSON string with a code and message. You can use the `TaskEngine::response` method to create a response object.
+
+```php
+// Success response
+return TaskEngine::response();
+
+// Success response with message
+return TaskEngine::response()->withMessage('Task processed successfully');
+
+// Error response with error
+return TaskEngine::response()->withError('An error occurred');
+
+// Error response with errors
+return TaskEngine::response()->withErrors([
+    'Error message 1',
+    'Error message 2',
+]);
 ```
 
 ## License

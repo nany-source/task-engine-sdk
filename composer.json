@@ -14,8 +14,10 @@
     "minimum-stability": "dev",
     "scripts": {
         "test-create": "php test/create.php",
+        "test-response": "php test/response.php",
         "test": [
-            "@test-create"
+            "@test-create",
+            "@test-response"
         ]
     }
 }

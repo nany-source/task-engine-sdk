@@ -16,6 +16,14 @@ class TaskEngine
     protected $params = [];
 
     /**
+     * Create a new response instance
+     */
+    public static function response()
+    {
+        return new TaskEngineResponse();
+    }
+
+    /**
      * TaskEngine constructor.
      * @param $apiEndpoint string API endpoint
      * @param $appKey string App key
@@ -164,7 +172,58 @@ class TaskEngine
     public function get()
     {
         $params = $this->params;
+        if (empty ($params['task_id'])) {
+            return null;
+        }
         $params['action'] = 'detail';
+        $result = $this->call($params);
+        $this->reset();
+        return new Task($result);
+    }
+
+    /**
+     * Write task log
+     */
+    public function log($message, $level = null)
+    {
+        $params = $this->params;
+        if (empty ($params['task_id'])) {
+            return null;
+        }
+        $params['action'] = 'log';
+        $params['level'] = $level ?? 'info';
+        $params['message'] = $message;
+        $this->call($params);
+        $this->reset();
+        return true;
+    }
+
+    /**
+     * Complete task
+     */
+    public function complete()
+    {
+        $params = $this->params;
+        if (empty ($params['task_id'])) {
+            return null;
+        }
+        $params['action'] = 'complete';
+        $result = $this->call($params);
+        $this->reset();
+        return new Task($result);
+    }
+
+    /**
+     * Fail task
+     */
+    public function fail($message = null)
+    {
+        $params = $this->params;
+        if (empty ($params['task_id'])) {
+            return null;
+        }
+        $params['action'] = 'fail';
+        $params['message'] = $message;
         $result = $this->call($params);
         $this->reset();
         return new Task($result);
