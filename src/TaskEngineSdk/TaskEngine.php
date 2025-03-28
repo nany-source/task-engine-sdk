@@ -154,6 +154,17 @@ class TaskEngine
     }
 
     /**
+     * Set will be over-written unique task user data (only for normal & unique task and pending status)
+     * @param $value bool Overwrite mode (default: false)
+     * @return $this
+     */
+    public function setOverWrite($value = false)
+    {
+        $this->params['rewrite'] = $value;
+        return $this;
+    }
+
+    /**
      * Create task
      * @return Task $task
      */
