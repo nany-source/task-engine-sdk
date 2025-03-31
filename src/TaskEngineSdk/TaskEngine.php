@@ -154,6 +154,17 @@ class TaskEngine
     }
 
     /**
+     * Set task terminal timeout
+     * @param int $timeout Timeout in seconds [default: 900 (15 min), minimum: 60]
+     * @return $this
+     */
+    public function setTimeout($timeout = 900)
+    {
+        $this->params['timeout'] = max(60, intval($timeout));
+        return $this;
+    }
+
+    /**
      * Set will be over-written unique task user data (only for normal & unique task and pending status)
      * @param $value bool Overwrite mode (default: false)
      * @return $this
